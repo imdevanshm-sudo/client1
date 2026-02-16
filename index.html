@@ -73,6 +73,11 @@
             100% { opacity: 1; }
         }
 
+        :root {
+            --safe-top: env(safe-area-inset-top);
+            --safe-bottom: env(safe-area-inset-bottom);
+        }
+
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #080202; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
@@ -195,8 +200,8 @@
         // --- Navigation ---
         const Navigation = () => {
             return (
-                <header className="fixed top-0 left-0 w-full z-50 py-6 md:py-8 transition-all duration-700 pointer-events-none">
-                    <div className="max-w-7xl mx-auto px-8 flex justify-center md:justify-between items-center pointer-events-auto">
+                <header className="fixed top-0 left-0 w-full z-50 py-4 md:py-8 transition-all duration-700 pointer-events-none">
+                    <div className="max-w-7xl mx-auto px-5 sm:px-8 flex justify-center md:justify-between items-center pointer-events-auto">
                         <Link to="/" className="group flex flex-col items-center md:items-start gap-1">
                             <div className="flex items-center gap-3">
                                 <span className="material-symbols-outlined text-gold text-2xl">temple_hindu</span>
@@ -234,7 +239,10 @@
             };
 
             return (
-                <main className={`relative h-screen w-full flex items-center justify-center overflow-hidden page-transition transition-opacity duration-300 ${entering ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                <main
+                    className={`relative min-h-[100svh] w-full flex items-center justify-center overflow-hidden page-transition transition-opacity duration-300 ${entering ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                    style={{ paddingTop: 'calc(var(--safe-top) + 72px)', paddingBottom: 'calc(var(--safe-bottom) + 40px)' }}
+                >
                     {/* Hero Background (clean, minimal) */}
                     <div className="absolute inset-0 z-0">
                         <SafeImage
@@ -248,19 +256,19 @@
                     </div>
 
                     {/* Content (premium hospitality style) */}
-                    <div className="relative z-10 w-full px-6">
-                        <div className="mx-auto max-w-3xl text-center space-y-7">
-                            <p className="font-ui text-[0.65rem] tracking-[0.28em] uppercase text-parchment/70">
+                    <div className="relative z-10 w-full px-5 sm:px-6">
+                        <div className="mx-auto max-w-3xl text-center space-y-6 sm:space-y-7">
+                            <p className="font-ui text-[0.6rem] sm:text-[0.65rem] tracking-[0.28em] uppercase text-parchment/70">
                                 Indian Destination Wedding Planning
                             </p>
-                            <h1 className="font-heading text-4xl md:text-6xl text-parchment leading-tight">
+                            <h1 className="font-heading text-3xl sm:text-4xl md:text-6xl text-parchment leading-tight">
                                 Begin Your <span className="text-gold-light">Wedding</span> Journey
                             </h1>
-                            <p className="font-body text-lg md:text-xl text-parchment/75 leading-relaxed max-w-2xl mx-auto">
+                            <p className="font-body text-base sm:text-lg md:text-xl text-parchment/75 leading-relaxed max-w-2xl mx-auto">
                                 Select your destination, choose your dates, and receive an instant estimate.
                             </p>
                             <div className="pt-6">
-                                <PrimaryButton onClick={handleEnterJourney} disabled={entering}>
+                                <PrimaryButton onClick={handleEnterJourney} disabled={entering} className="w-full sm:w-auto">
                                     Start Planning
                                 </PrimaryButton>
                             </div>
@@ -285,7 +293,7 @@
             ];
 
             return (
-                <div className="min-h-screen pt-32 pb-24 px-6 page-transition relative bg-surface">
+                <div className="min-h-screen pt-24 md:pt-32 pb-20 md:pb-24 px-5 sm:px-6 page-transition relative bg-surface">
                     <div className="max-w-6xl mx-auto z-10">
                         <div className="text-center mb-16">
                             <Link to="/" className="inline-flex items-center gap-2 font-ui text-[0.6rem] tracking-[0.2em] text-gold-dim hover:text-gold uppercase mb-6 transition-colors">
@@ -361,7 +369,7 @@
             const totalDays = dates.start && dates.end ? dates.end - dates.start + 1 : 0;
 
             return (
-                <div className="min-h-screen pt-32 pb-12 px-6 flex flex-col items-center page-transition relative bg-surface">
+                <div className="min-h-screen pt-24 md:pt-32 pb-12 px-5 sm:px-6 flex flex-col items-center page-transition relative bg-surface">
                     {/* Header */}
                     <div className="text-center space-y-3 mb-12 z-10">
                         <Link to="/" className="inline-flex items-center gap-2 font-ui text-[0.6rem] tracking-[0.2em] text-gold-dim hover:text-gold uppercase mb-4 transition-colors">
@@ -393,7 +401,7 @@
                         </div>
 
                         {/* Right: Calendar Interface */}
-                        <div className="glass-panel p-8 md:p-12 rounded-sm shadow-2xl relative w-full">
+                        <div className="glass-panel p-6 sm:p-8 md:p-12 rounded-sm shadow-2xl relative w-full">
                             {/* Corner Flourishes */}
                             <CornerFlourish className="absolute top-4 left-4 w-12 h-12 text-gold opacity-40" />
                             <CornerFlourish className="absolute bottom-4 right-4 w-12 h-12 text-gold opacity-40 rotate-180" />
@@ -406,7 +414,7 @@
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-7 gap-y-6 gap-x-2 text-center mb-10">
+                            <div className="grid grid-cols-7 gap-y-5 sm:gap-y-6 gap-x-2 text-center mb-10">
                                 {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(d => (
                                     <span key={d} className="font-ui text-[0.6rem] font-bold text-gold-dim uppercase tracking-widest">{d}</span>
                                 ))}
@@ -423,6 +431,7 @@
                                             onMouseEnter={() => setHoveredDate(day)}
                                             onMouseLeave={() => setHoveredDate(null)}
                                             disabled={!isInteractive}
+                                            style={{ touchAction: 'manipulation' }}
                                             className={`
                                                 relative h-10 w-10 mx-auto flex items-center justify-center text-base font-heading transition-all duration-300 rounded-full
                                                 ${!isInteractive ? 'text-white/10 cursor-not-allowed' : 'text-parchment hover:text-white hover:bg-white/5'}
@@ -502,7 +511,7 @@
                         <Route path="/calendar" element={<CalendarPage />} />
                     </Routes>
                     
-                    <footer className="absolute bottom-0 w-full py-6 text-center pointer-events-none z-20">
+                    <footer className="mt-auto w-full py-6 text-center pointer-events-none z-20" style={{ paddingBottom: 'calc(var(--safe-bottom) + 16px)' }}>
                         <p className="font-body text-xs text-parchment/20">© 2026 Ananta Vows India. All Rights Reserved.</p>
                     </footer>
                 </div>
