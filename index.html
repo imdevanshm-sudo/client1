@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Ananta Vows - Royal Destination Weddings</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet"/>
+    
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- React and Dependencies -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/history@5/umd/history.development.js"></script>
+    <script src="https://unpkg.com/react-router@6.3.0/umd/react-router.development.js"></script>
+    <script src="https://unpkg.com/react-router-dom@6.3.0/umd/react-router-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#681e26", // Deep Royal Red
+                        "void": "#080202", // Nearly Black
+                        "surface": "#120808", // Dark Warm Grey
+                        "gold": "#D4AF37", // Classic Gold
+                        "gold-light": "#F3E5AB", // Champagne
+                        "gold-dim": "#8C7335", // Antique Gold
+                        "parchment": "#F0EAD6", // Off-white
+                    },
+                    fontFamily: {
+                        "heading": ["Playfair Display", "serif"],
+                        "body": ["Cormorant Garamond", "serif"],
+                        "ui": ["Cinzel", "serif"],
+                    },
+                    backgroundImage: {
+                        'gold-gradient': 'linear-gradient(135deg, #D4AF37 0%, #F3E5AB 50%, #8C7335 100%)',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1.2s ease-out forwards',
+                        'slide-up': 'slideUp 1s ease-out forwards',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 60s linear infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+
+    <style>
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #080202; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+
+        @keyframes heroZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+        .hero-zoom {
+            transform-origin: center;
+            animation: heroZoom 26s ease-in-out infinite alternate;
+        }
+
+        .wedding-motifs-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.06;
+            mix-blend-mode: screen;
+            background-repeat: repeat;
+            background-size: 360px 360px;
+            /* Rajasthani wedding motifs: elephant + camel + jaali + bandhani dots (inline SVG; URL-safe). */
+            background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='360'%20height='360'%20viewBox='0%200%20360%20360'%3E%3Cdefs%3E%3Cpattern%20id='j'%20width='36'%20height='36'%20patternUnits='userSpaceOnUse'%3E%3Cpath%20d='M18,0v36M0,18h36'%20stroke='%23D4AF37'%20stroke-width='0.9'%20opacity='0.18'/%3E%3Cpath%20d='M0,0l36,36M36,0L0,36'%20stroke='%23D4AF37'%20stroke-width='0.6'%20opacity='0.10'/%3E%3C/pattern%3E%3C/defs%3E%3Crect%20width='360'%20height='360'%20fill='url(%23j)'/%3E%3Cg%20fill='none'%20stroke='%23D4AF37'%20stroke-width='1.6'%20opacity='0.62'%3E%3Cpath%20d='M78,212c0-38,31-69,69-69s69,31,69,69v22c0,11-9,20-20,20h-16c-11,0-20-9-20-20v-16c0-10-8-18-18-18h-10c-10,0-18,8-18,18v16c0,11-9,20-20,20H98c-11,0-20-9-20-20v-22z'/%3E%3Cpath%20d='M204,178c12-18,34-20,50-8c16,12,18,35,5,50c-12,13-33,12-45-1'/%3E%3Cpath%20d='M259,228c5,18-10,32-28,30'/%3E%3Cpath%20d='M154,134h58v22h-58zM168,134v-16h30v16'%20opacity='0.55'/%3E%3Cpath%20d='M188,118c8-18,22-28,42-26c14,2,26,12,28,26'%20opacity='0.34'/%3E%3Cpath%20d='M210,92c12-16,26-22,44-20'%20opacity='0.22'/%3E%3Cpath%20d='M102,164c10-10,22-16,36-18'%20opacity='0.18'/%3E%3C/g%3E%3Cg%20fill='none'%20stroke='%23D4AF37'%20stroke-width='1.4'%20opacity='0.40'%3E%3Cpath%20d='M44,292c10-18,30-28,52-26c12,1,22,6,30,14c8,8,10,18,6,30H62c-12,0-20-8-18-18z'/%3E%3Cpath%20d='M92,272c2-12,10-20,22-24c14-4,30,0,40,10'%3E%3C/path%3E%3Cpath%20d='M128,292c0-10,8-18,18-18h18c10,0,18,8,18,18'%3E%3C/path%3E%3Cpath%20d='M72,310v18M100,310v18M158,310v18M186,310v18'%20opacity='0.55'/%3E%3C/g%3E%3Cg%20fill='%23D4AF37'%20opacity='0.16'%3E%3Ccircle%20cx='26'%20cy='120'%20r='1.2'/%3E%3Ccircle%20cx='44'%20cy='132'%20r='1.2'/%3E%3Ccircle%20cx='62'%20cy='120'%20r='1.2'/%3E%3Ccircle%20cx='330'%20cy='120'%20r='1.2'/%3E%3Ccircle%20cx='312'%20cy='132'%20r='1.2'/%3E%3Ccircle%20cx='294'%20cy='120'%20r='1.2'/%3E%3Ccircle%20cx='180'%20cy='30'%20r='1.2'/%3E%3Ccircle%20cx='198'%20cy='46'%20r='1.2'/%3E%3Ccircle%20cx='162'%20cy='46'%20r='1.2'/%3E%3Ccircle%20cx='180'%20cy='330'%20r='1.2'/%3E%3Ccircle%20cx='198'%20cy='314'%20r='1.2'/%3E%3Ccircle%20cx='162'%20cy='314'%20r='1.2'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .glass-panel {
+            background: rgba(18, 8, 8, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .page-transition {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+    </style>
+</head>
+<body class="bg-void text-parchment font-body overflow-x-hidden selection:bg-primary selection:text-gold-light antialiased">
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useContext, createContext } = React;
+        const { createRoot } = ReactDOM;
+        const { HashRouter, Routes, Route, Link, useNavigate, useLocation } = ReactRouterDOM;
+
+        // --- Resilient Images (no broken icons) ---
+        const FALLBACK_IMAGE = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800' viewBox='0 0 1200 800'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='45%25' r='70%25'%3E%3Cstop offset='0%25' stop-color='%23120808'/%3E%3Cstop offset='100%25' stop-color='%23080202'/%3E%3C/radialGradient%3E%3ClinearGradient id='gold' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23D4AF37'/%3E%3Cstop offset='50%25' stop-color='%23F3E5AB'/%3E%3Cstop offset='100%25' stop-color='%238C7335'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='800' fill='url(%23g)'/%3E%3Ccircle cx='600' cy='400' r='280' fill='none' stroke='url(%23gold)' stroke-width='2' opacity='0.35'/%3E%3Ccircle cx='600' cy='400' r='340' fill='none' stroke='url(%23gold)' stroke-width='1' opacity='0.25'/%3E%3Cpath d='M600 125 Q740 260 600 400 Q460 260 600 125 Z' fill='none' stroke='url(%23gold)' stroke-width='1.2' opacity='0.25'/%3E%3Cpath d='M600 675 Q740 540 600 400 Q460 540 600 675 Z' fill='none' stroke='url(%23gold)' stroke-width='1.2' opacity='0.25'/%3E%3C/svg%3E";
+
+        const SafeImage = ({ src, alt, className = "", style = {}, loading = "lazy" }) => (
+            <img
+                src={src}
+                alt={alt}
+                className={className}
+                style={style}
+                loading={loading}
+                decoding="async"
+                onError={(e) => {
+                    // Prevent infinite loops if fallback ever fails (it shouldn't).
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = FALLBACK_IMAGE;
+                }}
+            />
+        );
+
+        // --- Context for Booking State ---
+        const BookingContext = createContext();
+
+        const BookingProvider = ({ children }) => {
+            const [dates, setDates] = useState({ start: null, end: null });
+            
+            return (
+                <BookingContext.Provider value={{ dates, setDates }}>
+                    {children}
+                </BookingContext.Provider>
+            );
+        };
+
+        // --- Graphics Components ---
+
+        const CornerFlourish = ({ className }) => (
+            <svg viewBox="0 0 50 50" className={className} xmlns="http://www.w3.org/2000/svg">
+                <path fill="none" stroke="currentColor" strokeWidth="1.5" d="M1 50 V 15 Q 1 1 15 1 H 50" />
+                <path fill="none" stroke="currentColor" strokeWidth="1" d="M5 50 V 18 Q 5 5 18 5 H 50" opacity="0.6"/>
+            </svg>
+        );
+
+        // --- Reusable UI Components ---
+
+        const PrimaryButton = ({ children, onClick, disabled = false, loading = false, className = "" }) => (
+            <button
+                onClick={onClick}
+                disabled={disabled || loading}
+                className={`inline-flex items-center justify-center px-10 py-4 rounded-sm border transition-all duration-300
+                    border-gold/40 bg-transparent
+                    ${disabled || loading ? 'opacity-60 cursor-not-allowed' : 'hover:border-gold hover:bg-gold/5 hover:scale-[1.02]'}
+                    ${className}`}
+            >
+                {loading ? (
+                    <span className="material-symbols-outlined animate-spin text-gold">progress_activity</span>
+                ) : (
+                    <span className="font-ui text-[0.7rem] tracking-[0.24em] uppercase text-parchment/90">
+                        {children}
+                    </span>
+                )}
+            </button>
+        );
+
+        const ScrollToTop = () => {
+            const { pathname } = useLocation();
+            useEffect(() => {
+                window.scrollTo(0, 0);
+            }, [pathname]);
+            return null;
+        };
+
+        // --- Navigation ---
+        const Navigation = () => {
+            return (
+                <header className="fixed top-0 left-0 w-full z-50 py-6 md:py-8 transition-all duration-700 pointer-events-none">
+                    <div className="max-w-7xl mx-auto px-8 flex justify-center md:justify-between items-center pointer-events-auto">
+                        <Link to="/" className="group flex flex-col items-center md:items-start gap-1">
+                            <div className="flex items-center gap-3">
+                                <span className="material-symbols-outlined text-gold text-2xl">temple_hindu</span>
+                                <span className="font-heading text-2xl tracking-widest text-parchment group-hover:text-gold-light transition-colors">ANANTA</span>
+                            </div>
+                            <span className="font-ui text-[0.6rem] tracking-[0.3em] text-gold-dim uppercase ml-1">Eternal Vows India</span>
+                        </Link>
+                        
+                        <nav className="hidden md:flex items-center gap-8">
+                            <Link to="/destinations" className="font-ui text-[0.65rem] tracking-[0.2em] text-parchment/60 hover:text-gold uppercase transition-colors">Venues</Link>
+                            <Link to="/calendar" className="font-ui text-[0.65rem] tracking-[0.2em] text-parchment/60 hover:text-gold uppercase transition-colors">Dates</Link>
+                        </nav>
+                    </div>
+                </header>
+            );
+        };
+
+        // --- Page 1: Landing (Journey Entry) ---
+        const LandingPage = () => {
+            const navigate = useNavigate();
+            const [entering, setEntering] = useState(false);
+
+            useEffect(() => {
+                return () => {
+                    // no-op: component unmount cancels the visual anyway
+                };
+            }, []);
+
+            const handleEnterJourney = () => {
+                if (entering) return;
+                setEntering(true);
+                window.setTimeout(() => {
+                    navigate('/calendar');
+                }, 300);
+            };
+
+            return (
+                <main className={`relative h-screen w-full flex items-center justify-center overflow-hidden page-transition transition-opacity duration-300 ${entering ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                    {/* Hero Background (clean, minimal) */}
+                    <div className="absolute inset-0 z-0">
+                        <SafeImage
+                            src="https://source.unsplash.com/iJ5RggSCNTo/2400x1600"
+                            className="h-full w-full object-cover hero-zoom"
+                            alt="Udaipur palace at sunset"
+                            loading="eager"
+                        />
+                        {/* Slight dark gradient overlay (~40–50%) */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-void/80 via-void/50 to-void/30"></div>
+                    </div>
+
+                    {/* Content (premium hospitality style) */}
+                    <div className="relative z-10 w-full px-6">
+                        <div className="mx-auto max-w-3xl text-center space-y-7">
+                            <p className="font-ui text-[0.65rem] tracking-[0.28em] uppercase text-parchment/70">
+                                Indian Destination Wedding Planning
+                            </p>
+                            <h1 className="font-heading text-4xl md:text-6xl text-parchment leading-tight">
+                                Begin Your <span className="text-gold-light">Wedding</span> Journey
+                            </h1>
+                            <p className="font-body text-lg md:text-xl text-parchment/75 leading-relaxed max-w-2xl mx-auto">
+                                Select your destination, choose your dates, and receive an instant estimate.
+                            </p>
+                            <div className="pt-6">
+                                <PrimaryButton onClick={handleEnterJourney} disabled={entering}>
+                                    Start Planning
+                                </PrimaryButton>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            );
+        };
+
+        // --- Destinations Page: Palaces, Hotels & Gardens ---
+        const DestinationsPage = () => {
+            const navigate = useNavigate();
+            const venues = [
+                { name: "Taj Lake Palace", location: "Udaipur", type: "Palace", desc: "A floating marble palace on Lake Pichola. Royal weddings amid mirrored halls and lotus gardens.", img: "https://images.unsplash.com/photo-1582972236019-ea4f7ba9995e?q=80&w=800&auto=format&fit=crop" },
+                { name: "Rambagh Palace", location: "Jaipur", type: "Palace", desc: "The former residence of the Maharaja. Grand lawns and Mughal gardens for regal celebrations.", img: "https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=800&auto=format&fit=crop" },
+                { name: "Umaid Bhawan Palace", location: "Jodhpur", type: "Palace", desc: "One of the world's largest private residences. Art deco elegance meets royal heritage.", img: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=800&auto=format&fit=crop" },
+                { name: "Oberoi Udaivilas", location: "Udaipur", type: "Hotel", desc: "Lakeside luxury with domes, courtyards and reflection pools. A sanctuary for intimate weddings.", img: "https://images.unsplash.com/photo-1615836245337-f5b9b2303f10?q=80&w=800&auto=format&fit=crop" },
+                { name: "Kumarakom Lake Resort", location: "Kerala", type: "Resort", desc: "Backwater villas amid coconut groves. Serene garden weddings by the water.", img: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=80&w=800&auto=format&fit=crop" },
+                { name: "Taj Fort Aguada", location: "Goa", type: "Hotel", desc: "17th-century fort overlooking the Arabian Sea. Cliffside gardens and ocean breezes.", img: "https://images.unsplash.com/photo-1544979140-5e5898d5c418?q=80&w=800&auto=format&fit=crop" },
+                { name: "Vivanta by Taj - Madikeri", location: "Coorg", type: "Resort", desc: "Coffee estate retreat with misty hills and tropical gardens. Nature's amphitheatre.", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop" },
+                { name: "ITC Grand Bharat", location: "Gurgaon", type: "Hotel", desc: "Palace-inspired resort with 300 acres of landscaped gardens. A modern royal escape.", img: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?q=80&w=800&auto=format&fit=crop" }
+            ];
+
+            return (
+                <div className="min-h-screen pt-32 pb-24 px-6 page-transition relative bg-surface">
+                    <div className="max-w-6xl mx-auto z-10">
+                        <div className="text-center mb-16">
+                            <Link to="/" className="inline-flex items-center gap-2 font-ui text-[0.6rem] tracking-[0.2em] text-gold-dim hover:text-gold uppercase mb-6 transition-colors">
+                                <span className="material-symbols-outlined text-sm">arrow_back</span> Home
+                            </Link>
+                            <span className="material-symbols-outlined text-gold-dim text-4xl mb-4 block">castle</span>
+                            <h2 className="font-heading text-4xl md:text-6xl text-parchment mb-4">Palaces, Hotels & Gardens</h2>
+                            <p className="font-body text-lg text-parchment/70 max-w-2xl mx-auto">India's most coveted venues for destination weddings. From royal palaces to serene garden estates.</p>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-8 mb-12">
+                            {venues.map((v, i) => (
+                                <div key={i} className="group glass-panel rounded-sm overflow-hidden border border-gold-dim/20 hover:border-gold/30 transition-all duration-500">
+                                    <div className="relative h-56 overflow-hidden">
+                                        <SafeImage src={v.img} alt={`${v.name} — ${v.location}`} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-void via-void/40 to-transparent"></div>
+                                        <div className="absolute bottom-4 left-4 right-4">
+                                            <span className="font-ui text-[0.6rem] tracking-[0.2em] text-gold uppercase">{v.type}</span>
+                                            <h3 className="font-heading text-2xl text-gold-light">{v.name}</h3>
+                                            <p className="font-body text-sm text-parchment/80">{v.location}</p>
+                                        </div>
+                                    </div>
+                                    <div className="p-6">
+                                        <p className="font-body text-parchment/80 leading-relaxed">{v.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="text-center">
+                            <PrimaryButton onClick={() => navigate('/calendar')}>Select Your Dates</PrimaryButton>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- Page 2: Date Selection (Calendar) ---
+        const CalendarPage = () => {
+            const { dates, setDates } = useContext(BookingContext);
+            const [hoveredDate, setHoveredDate] = useState(null);
+            const [status, setStatus] = useState('idle');
+
+            const handleDateClick = (day) => {
+                if (status === 'success') setStatus('idle');
+                if (day < 5) return; 
+
+                if (!dates.start || (dates.start && dates.end)) {
+                    setDates({ start: day, end: null });
+                } else {
+                    if (day < dates.start) {
+                        setDates({ start: day, end: null });
+                    } else {
+                        setDates({ ...dates, end: day });
+                    }
+                }
+            };
+
+            const handleCheckAvailability = () => {
+                setStatus('checking');
+                setTimeout(() => {
+                    setStatus('success');
+                }, 2000);
+            };
+
+            const getDayStatus = (day) => {
+                if (day === dates.start) return 'start';
+                if (day === dates.end) return 'end';
+                if (dates.start && dates.end && day > dates.start && day < dates.end) return 'range';
+                return 'none';
+            };
+
+            const totalDays = dates.start && dates.end ? dates.end - dates.start + 1 : 0;
+
+            return (
+                <div className="min-h-screen pt-32 pb-12 px-6 flex flex-col items-center page-transition relative bg-surface">
+                    {/* Header */}
+                    <div className="text-center space-y-3 mb-12 z-10">
+                        <Link to="/" className="inline-flex items-center gap-2 font-ui text-[0.6rem] tracking-[0.2em] text-gold-dim hover:text-gold uppercase mb-4 transition-colors">
+                            <span className="material-symbols-outlined text-sm">arrow_back</span> Home
+                        </Link>
+                        <span className="material-symbols-outlined text-gold-dim text-3xl">event_available</span>
+                        <h2 className="font-heading text-4xl md:text-5xl text-parchment">Auspicious Dates</h2>
+                        <p className="font-body text-lg text-parchment/60">Select the duration of your celebration.</p>
+                    </div>
+
+                    <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-start z-10">
+                        
+                        {/* Left: Imagery */}
+                        <div className="hidden lg:block relative h-[600px] rounded-sm overflow-hidden border border-gold-dim/20 shadow-2xl">
+                            {/* New Night/Wedding Scene */}
+                            <SafeImage
+                                src="https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=1200&auto=format&fit=crop"
+                                className="h-full w-full object-cover opacity-90"
+                                alt="Palace gardens and wedding lights"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent opacity-90"></div>
+                            
+                            <div className="absolute bottom-10 left-10 right-10">
+                                <p className="font-heading text-3xl text-gold-light mb-2">The Royal Mandap</p>
+                                <p className="font-body text-parchment/80 leading-relaxed">
+                                    "A wedding isn't just an event; it's a legacy. Ensure your dates align with destiny."
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Right: Calendar Interface */}
+                        <div className="glass-panel p-8 md:p-12 rounded-sm shadow-2xl relative w-full">
+                            {/* Corner Flourishes */}
+                            <CornerFlourish className="absolute top-4 left-4 w-12 h-12 text-gold opacity-40" />
+                            <CornerFlourish className="absolute bottom-4 right-4 w-12 h-12 text-gold opacity-40 rotate-180" />
+
+                            <div className="flex items-center justify-between mb-8 pb-4 border-b border-gold/10">
+                                <span className="font-heading text-2xl text-gold-light">December 2026</span>
+                                <div className="flex gap-4 text-parchment/40">
+                                    <button className="hover:text-gold transition-colors"><span className="material-symbols-outlined">west</span></button>
+                                    <button className="hover:text-gold transition-colors"><span className="material-symbols-outlined">east</span></button>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-7 gap-y-6 gap-x-2 text-center mb-10">
+                                {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(d => (
+                                    <span key={d} className="font-ui text-[0.6rem] font-bold text-gold-dim uppercase tracking-widest">{d}</span>
+                                ))}
+                                {Array(2).fill(null).map((_, i) => <div key={`empty-${i}`} />)}
+                                {Array(31).fill(null).map((_, i) => {
+                                    const day = i + 1;
+                                    const dayStatus = getDayStatus(day);
+                                    const isInteractive = day >= 5;
+                                    
+                                    return (
+                                        <button 
+                                            key={day}
+                                            onClick={() => isInteractive && handleDateClick(day)}
+                                            onMouseEnter={() => setHoveredDate(day)}
+                                            onMouseLeave={() => setHoveredDate(null)}
+                                            disabled={!isInteractive}
+                                            className={`
+                                                relative h-10 w-10 mx-auto flex items-center justify-center text-base font-heading transition-all duration-300 rounded-full
+                                                ${!isInteractive ? 'text-white/10 cursor-not-allowed' : 'text-parchment hover:text-white hover:bg-white/5'}
+                                                ${dayStatus === 'start' || dayStatus === 'end' ? 'bg-gold text-void font-bold shadow-[0_0_15px_rgba(212,175,55,0.4)] scale-110 z-10' : ''}
+                                                ${dayStatus === 'range' ? 'bg-gold/10 text-gold-light' : ''}
+                                            `}
+                                        >
+                                            {dayStatus === 'range' && <div className="absolute inset-y-0 -left-2 -right-2 bg-gold/10 -z-10"></div>}
+                                            {dayStatus === 'start' && dates.end && <div className="absolute inset-y-0 right-0 w-1/2 bg-gold/10 -z-10"></div>}
+                                            {dayStatus === 'end' && <div className="absolute inset-y-0 left-0 w-1/2 bg-gold/10 -z-10"></div>}
+                                            {day}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+
+                            {/* Status Area */}
+                            <div className="space-y-6 pt-6 border-t border-gold/10">
+                                <div className="flex justify-between items-end">
+                                    <div>
+                                        <p className="font-ui text-[0.6rem] uppercase tracking-widest text-gold-dim mb-1">Selected Dates</p>
+                                        <p className="font-heading text-xl text-parchment">
+                                            {dates.start ? `Dec ${dates.start}` : '--'} 
+                                            <span className="text-gold/50 mx-2">—</span>
+                                            {dates.end ? `Dec ${dates.end}` : '--'}
+                                        </p>
+                                    </div>
+                                    <div className="text-right">
+                                        <p className="font-ui text-[0.6rem] uppercase tracking-widest text-gold-dim mb-1">Duration</p>
+                                        <p className="font-heading text-xl text-parchment">{totalDays > 0 ? `${totalDays} Days` : '--'}</p>
+                                    </div>
+                                </div>
+
+                                {/* Action Button & Feedback */}
+                                <div className="flex flex-col items-center gap-4">
+                                    {status === 'success' ? (
+                                        <div className="w-full bg-primary/20 border border-primary/40 p-4 rounded-sm flex items-center justify-center gap-3 animate-fade-in text-parchment">
+                                            <span className="material-symbols-outlined text-gold">verified</span>
+                                            <span className="font-heading text-lg">Dates are available. Our concierge will contact you shortly.</span>
+                                        </div>
+                                    ) : (
+                                        <PrimaryButton 
+                                            disabled={!dates.start || !dates.end}
+                                            loading={status === 'checking'}
+                                            onClick={handleCheckAvailability}
+                                            className="w-full"
+                                        >
+                                            Check Availability
+                                        </PrimaryButton>
+                                    )}
+                                    
+                                    {!dates.end && dates.start && (
+                                        <p className="text-xs text-red-400/80 font-ui tracking-wide animate-pulse">Please select an end date.</p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- Main App Component ---
+        const AppLayout = () => {
+            const { pathname } = useLocation();
+            const showMotifs = pathname !== '/';
+
+            return (
+                <div className="min-h-screen flex flex-col relative bg-void">
+                    {/* Keep landing clean; show motifs on inner pages only */}
+                    {showMotifs && <div className="wedding-motifs-overlay"></div>}
+                    <ScrollToTop />
+                    <Navigation />
+                    <Routes>
+                        <Route path="/" element={<LandingPage />} />
+                        <Route path="/destinations" element={<DestinationsPage />} />
+                        <Route path="/calendar" element={<CalendarPage />} />
+                    </Routes>
+                    
+                    <footer className="absolute bottom-0 w-full py-6 text-center pointer-events-none z-20">
+                        <p className="font-body text-xs text-parchment/20">© 2026 Ananta Vows India. All Rights Reserved.</p>
+                    </footer>
+                </div>
+            );
+        };
+
+        const App = () => {
+            return (
+                <BookingProvider>
+                    <HashRouter>
+                        <AppLayout />
+                    </HashRouter>
+                </BookingProvider>
+            );
+        };
+
+        const container = document.getElementById('root');
+        const root = createRoot(container);
+        root.render(<App />);
+    </script>
+</body>
+</html>
