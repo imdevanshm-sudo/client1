@@ -268,7 +268,11 @@
                                 Select your destination, choose your dates, and receive an instant estimate.
                             </p>
                             <div className="pt-6">
-                                <PrimaryButton onClick={handleEnterJourney} disabled={entering} className="w-full sm:w-auto">
+                                <PrimaryButton
+                                    onClick={handleEnterJourney}
+                                    disabled={entering}
+                                    className="w-full sm:w-auto bg-void/25 backdrop-blur-sm border-gold/60"
+                                >
                                     Start Planning
                                 </PrimaryButton>
                             </div>
@@ -382,8 +386,8 @@
 
                     <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-start z-10">
                         
-                        {/* Left: Imagery */}
-                        <div className="hidden lg:block relative h-[600px] rounded-sm overflow-hidden border border-gold-dim/20 shadow-2xl">
+                        {/* Left: Imagery (visible on mobile; stacks above calendar) */}
+                        <div className="relative h-56 sm:h-80 lg:h-[600px] rounded-sm overflow-hidden border border-gold-dim/20 shadow-2xl">
                             {/* New Night/Wedding Scene */}
                             <SafeImage
                                 src="https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=1200&auto=format&fit=crop"
